@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+  // published Boolean @default(false)
+  // author    User?   @relation(fields: [authorId], references: [id])
+ //  authorId  String  @db.ObjectId
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Trip {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  plate     String?
+  BusId     Int?
+  start     String?
+  where     String?
+  date      String?
+  starttime      String?
+  reachtime      String?
+  price      Int?
+  decker     Int?
+  type     String?
+  bus    BusAgency?   @relation(fields: [busId], references: [id])
+   busId  String  @db.ObjectId
+}
+
+model BusAgency {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  email String  @unique
+  name  String?
+  phone Int?
+  password String?
+  trips Trip[]
+
+
+}
