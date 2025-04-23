@@ -33,6 +33,42 @@ const Reigister = async (req, res) => {
 }
 
 
+const Login = async (req, res) => {
+  try {
+    const {email , password} = req.body
+
+    const user = await prisma.busAgency.findUnique({
+       where :{
+         email :email
+       }   
+    })
+
+    if(!user){
+      return res.status(401).json({
+        success : false,
+        message : "Email/Password is InCorrect "
+      })
+    }
+    const checkPassWord = await bcrypt.compare(password , user.password)
+    if( !checkPassWord){
+      return res.status(401).json({
+        success : false,
+        message : "Email/Password is InCorrect "
+      })
+    }
+
+    const token = generateToken(user.id)
+
+    res.status(200).json({
+      success : true,
+      token
+    })
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+
 const addTrip = async (req, res) => {
    
         const {plate ,info ,  busId , startFrom , whereTo , date , startTime , reachTime , price , decker , type} = req.body
@@ -67,5 +103,5 @@ const addTrip = async (req, res) => {
 }
 
 
-module.exports = {addTrip , Reigister}
+module.exports = {addTrip , Reigister , Login}
 
