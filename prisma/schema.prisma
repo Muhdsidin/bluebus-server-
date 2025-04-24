@@ -19,14 +19,14 @@ generator client {
 model Trip {
   id        String  @id @default(auto()) @map("_id") @db.ObjectId
   plate     String?
-  BusId     Int?
+  BusId     String?
   start     String?
   where     String?
   date      String?
   starttime      String?
   reachtime      String?
-  price      Int?
-  decker     Int?
+  price      String?
+  decker     String?
   type     String?
   bus    BusAgency?   @relation(fields: [busId], references: [id])
    busId  String  @db.ObjectId

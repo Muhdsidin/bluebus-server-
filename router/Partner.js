@@ -10,5 +10,6 @@ router.get("/", (req, res) => {
 router.post("/add-trip", AgencyAuth , addTrip)
 router.post("/register" ,Reigister )
 router.post("/login" ,Login )
+router.post("/add-trip" ,AgencyAuth , addTrip )
 
 module.exports = router

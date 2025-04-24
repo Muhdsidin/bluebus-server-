@@ -73,19 +73,23 @@ const addTrip = async (req, res) => {
    
         const {plate ,info ,  busId , startFrom , whereTo , date , startTime , reachTime , price , decker , type} = req.body
         const id = req.userId
+        console.log(req.body)
+        console.log(id)
+        console.log(req.body.formData.busId)
+        const item = req.body.formData
     try {
       const setTrip = await prisma.trip.create({
         data:{
-          plate :plate,
-          BusId :busId,
-          start :startFrom,
-          where :whereTo,
-          date :date,
-          starttime :startTime,
-          reachtime :reachTime,
-          price :price,
-          decker :decker,
-          type :type,
+          plate : item.numberPlate,
+          BusId : item.busId,
+          start :item.startFrom,
+          where :item.destination,
+          date :item.date,
+          starttime :item.startTime,
+          reachtime :item.endTime,
+          price :item.price,
+          decker :item.decker,
+          type :item.acType,
           bus:{
             connect :{ id }
           }
@@ -100,6 +104,29 @@ const addTrip = async (req, res) => {
         console.log(error.message)
     }
 
+}
+
+const getTrip = async (req, res) => {
+  try {
+  const id = req.userId    
+  const find = await prisma.busAgency.findUnique({
+   where :{
+    id
+   }, 
+   include : {trips : true}
+  })
+
+  if(!find){
+    return res.status(401).json({
+      success : false,
+      message : "Please Login or signup Before check "
+    })
+  }
+
+  res.status(200).json(find.trips)
+  } catch (error) {
+    console.log(error.message)
+  }
 }
 
 

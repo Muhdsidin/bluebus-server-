@@ -30,7 +30,7 @@ app.use('/partner', PartnerRouter)
        res.status(200).json(bus)
      } catch (error) {
          console.log(error.message)
-     }
+     }  
    });
 
 
