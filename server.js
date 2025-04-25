@@ -7,6 +7,7 @@ const dotenv = require("dotenv").config()
 const { PrismaClient } = require('@prisma/client')
 const errorHandler = require("./middleware/Error")
 const prisma = new PrismaClient()
+const User = require("./router/User")
 
 
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(errorHandler)
 
 app.use('/partner', PartnerRouter)
+app.use('/client', User)
 
 
   app.post('/bus', async(req, res) => {

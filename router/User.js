@@ -1,8 +1,11 @@
 const express = require("express");
+const { FindBus } = require("../controllers/UserController");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-    res.send("hello partner");
+    res.send("hello User");
 })
+
+router.get("/bus", FindBus) 
 
 module.exports = router 

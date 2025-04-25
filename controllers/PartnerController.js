@@ -70,8 +70,6 @@ const Login = async (req, res) => {
 
 
 const addTrip = async (req, res) => {
-   
-        const {plate ,info ,  busId , startFrom , whereTo , date , startTime , reachTime , price , decker , type} = req.body
         const id = req.userId
         console.log(req.body)
         console.log(id)
@@ -130,5 +128,5 @@ const getTrip = async (req, res) => {
 }
 
 
-module.exports = {addTrip , Reigister , Login}
+module.exports = {addTrip , Reigister , Login , getTrip}
 
