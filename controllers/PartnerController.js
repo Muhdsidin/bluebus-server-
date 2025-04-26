@@ -128,5 +128,38 @@ const getTrip = async (req, res) => {
 }
 
 
-module.exports = {addTrip , Reigister , Login , getTrip}
+const deleteTrip = async (req, res) => {
+  try {
+    const {tripId  }= req.body
+    if(!tripId){
+      return res.status(404).json({
+        success : false ,
+        message : "Please provide Trip ID "
+      })
+    }
+
+    const DeleteTrip = await prisma.trip.delete({
+      where :{
+        id :tripId
+      }  
+    })
+
+    if(!DeleteTrip){
+      return res.status(404).json({
+        success : false ,
+        message : "Please provide Trip ID "
+      })
+    }
+
+    res.status(200).json({
+      success : true,
+      message : "Trip sucessFully Deleted"
+    })
+    
+  } catch (error) {
+    console.log(error.message) || error.message
+  }
+}
+
+module.exports = {deleteTrip , addTrip , Reigister , Login , getTrip}
 
