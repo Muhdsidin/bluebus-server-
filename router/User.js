@@ -6,6 +6,6 @@ router.get("/", (req, res) => {
     res.send("hello User");
 })
 
-router.get("/bus", FindBus) 
+router.post("/bus", FindBus) 
 
 module.exports = router 
