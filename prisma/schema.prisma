@@ -16,6 +16,18 @@ generator client {
   provider = "prisma-client-js"
 }
 
+
+
+model BusAgency {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  email String  @unique
+  name  String?
+  phone String?
+  password String?
+  trips Trip[]
+ 
+}
+
 model Trip {
   id        String  @id @default(auto()) @map("_id") @db.ObjectId
   plate     String?
@@ -29,16 +41,13 @@ model Trip {
   decker     String?
   type     String?
   bus    BusAgency?   @relation(fields: [busId], references: [id])
-   busId  String  @db.ObjectId
+  busId  String  @db.ObjectId
+  Booking Booking[]
 }
 
-model BusAgency {
-  id    String  @id @default(auto()) @map("_id") @db.ObjectId
-  email String  @unique
-  name  String?
-  phone String?
-  password String?
-  trips Trip[]
-
-
+model Booking {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  trip      Trip?   @relation(fields: [tripId], references: [id])
+  tripId    String  @db.ObjectId
+  
 }
